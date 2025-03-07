@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
   const login = (username, password) => {
     if (username === "admin" && password === "1234") {
       setIsAuthenticated(true);
-      navigate("/notifications");
+      navigate("/home");
     } else {
       alert("Invalid username or password");
     }
@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     setIsAuthenticated(false);
-    navigate("/login");
+    navigate("");
   };
 
   return (

@@ -36,8 +36,13 @@ body {
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #1f66ca;
+  background-color: #3e3e3e;
   color: white;
+}
+
+.topnav a.end {
+  background-color: #f44336;
+  float: right;
 }
 
 .logo {
