@@ -13,7 +13,6 @@ function Navigation() {
           <Link to="/notifications">Notificaciones</Link>
           <Link to="/contact">Contactos</Link>
           <Link to="/about">Soporte</Link>
-          <Link to="/api">Api</Link>
           <Link className="end" to="/">Exit</Link>
         </div>
       </div>
