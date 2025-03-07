@@ -6,7 +6,26 @@ import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-rou
 import Navigation from "./Navigation";
 import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
+import Api from "./Api"
 
+
+function ApiFun() {
+  return (
+    <div>
+      <Navigation />
+      <Api />
+    </div>
+  );
+}
+
+function Home() {
+  return (
+    <div>
+      <Navigation />
+      <h1>Inicio</h1>
+    </div>
+  );
+}
 
 function About() {
   return (
@@ -69,6 +88,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/notifications"
             element={
               <ProtectedRoute>
@@ -89,6 +116,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <About />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/api"
+            element={
+              <ProtectedRoute>
+                <ApiFun />
               </ProtectedRoute>
             }
           />
