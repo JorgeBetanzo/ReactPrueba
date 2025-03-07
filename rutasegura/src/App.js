@@ -8,6 +8,15 @@ import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 
 
+function Home() {
+  return (
+    <div>
+      <Navigation />
+      <h1>Inicio</h1>
+    </div>
+  );
+}
+
 function About() {
   return (
     <div>
@@ -68,6 +77,14 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/notifications"
             element={
