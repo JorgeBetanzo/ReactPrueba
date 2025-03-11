@@ -16,7 +16,7 @@ function Api() {
         fetch(realUrl)
           .then((res) => res.json())
           .then((data) => {
-            console.log(data); // Log the data to ensure it's being fetched correctly
+            console.log(data);
             return {
               name: data.name,
               id: data.id, 
@@ -27,7 +27,7 @@ function Api() {
     }
 
     Promise.all(promises).then((results) => {
-      console.log(results); // Log the results to ensure they are being set correctly
+      console.log(results); 
       setPokemonList(results);
     });
   };
