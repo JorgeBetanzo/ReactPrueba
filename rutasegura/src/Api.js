@@ -1,67 +1,89 @@
 import React, { useState, useEffect } from "react";
+import "./Api.css";
 
 function Api() {
-  const url = "https://pokeapi.co/api/v2/pokemon"; // Specific Pokemon endpoint
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [pokemonID, setPokemonID] = useState(815);
+  const url = "https://pokeapi.co/api/v2/pokemon"; 
+  const [pokemonList, setPokemonList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const itemsPerPage = 5;
 
   const fetchInfo = () => {
-    const realUrl = `${url}/${pokemonID}`;
-    return fetch(realUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        const name = data.name;
-        const spriteUrl = data.sprites.front_default; // Get the image URL from the response
-        setImageUrl(spriteUrl);
-        setName(name);
-      });
+    const promises = [];
+    for (let i = 1; i <= 30; i++) {
+      const realUrl = `${url}/${i}`;
+      promises.push(
+        fetch(realUrl)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data); // Log the data to ensure it's being fetched correctly
+            return {
+              name: data.name,
+              id: data.id, 
+              imageUrl: data.sprites.front_default,
+            };
+          })
+      );
+    }
+
+    Promise.all(promises).then((results) => {
+      console.log(results); // Log the results to ensure they are being set correctly
+      setPokemonList(results);
+    });
   };
 
   useEffect(() => {
     fetchInfo();
-  }, [pokemonID]);
+  }, []);
 
-  const handleIncrement = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    setPokemonID((prevID) => prevID < 1025 ? prevID + 1 : 1025);
+    setCurrentPage((prevPage) => (prevPage < Math.floor(pokemonList.length / itemsPerPage) ? prevPage + 1 : prevPage));
   };
 
-  const handleDecrement = (e) => {
+  const handlePrevious = (e) => {
     e.preventDefault();
-    setPokemonID((prevID) => (prevID > 1 ? prevID - 1 : 1));
+    setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : prevPage));
   };
 
-  const handleIncrementTen = (e) => {
-    e.preventDefault();
-    setPokemonID((prevID) => prevID < 1015 ? prevID + 10 : 1025);
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(0); // Reset the current page to 0 when the search query changes
   };
 
-  const handleDecrementTen = (e) => {
-    e.preventDefault();
-    setPokemonID((prevID) => (prevID > 10 ? prevID - 10 : 1));
-  };
+  const filteredPokemonList = pokemonList.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const startIndex = currentPage * itemsPerPage;
+  const selectedPokemon = filteredPokemonList.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="Api" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <h1>{pokemonID}</h1>
-      <h1>{name}</h1>
-      {imageUrl ? <img src={imageUrl} alt="Pokemon" /> : "Loading..."}
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <form onSubmit={handleDecrement}>
-          <button type="submit">-1</button>
-        </form>
-        <form onSubmit={handleIncrement}>
-          <button type="submit">+1</button>
-        </form>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <input
+        type="text"
+        placeholder="Search Pokémon"
+        value={searchQuery}
+        onChange={handleSearch}
+        style={{ marginBottom: "20px", padding: "10px", fontSize: "16px" }}
+      />
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+        {selectedPokemon.map((pokemon, index) => (
+          <div className="Api2" key={index}>
+            <div className="Api" key={index} style={{ margin: "10px" }}>
+              {pokemon.imageUrl ? <img src={pokemon.imageUrl} alt={pokemon.name} /> : "Loading..."}
+            </div>
+            <h1>#{pokemon.id}</h1>
+            <h1>{pokemon.name}</h1>
+          </div>
+        ))}
       </div>
-
       <div style={{ display: "flex", flexDirection: "row" }}>
-      <form onSubmit={handleDecrementTen}>
-          <button type="submit">-10</button>
+        <form onSubmit={handlePrevious}>
+          <button type="submit">Anterior</button>
         </form>
-        <form onSubmit={handleIncrementTen}>
-          <button type="submit">+10</button>
+        <form onSubmit={handleNext}>
+          <button type="submit">Siguiente</button>
         </form>
       </div>
     </div>

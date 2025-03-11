@@ -1,0 +1,33 @@
+.Api{
+    display: flex;
+    background-color: rgb(56, 56, 56);
+    border-radius: 5px;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 10px;
+
+    img{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+
+
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+
+    }
+}
+
+
+
+
+
+.Api2 h1{
+    padding-left:   10px;
+    text-align: left;
+
+
+}
