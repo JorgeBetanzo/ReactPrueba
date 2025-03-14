@@ -10,6 +10,17 @@ body {
   flex-direction: column;
 }
 
+/* Remove underline and set color to white for all links */
+a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Change the color of links on hover */
+a:hover {
+  color: #ddd;
+}
+
 .topnav {
   background-color: #333;
   overflow: hidden;
@@ -18,7 +29,6 @@ body {
   width: 100%;
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
   float: left;
   color: #f2f2f2;

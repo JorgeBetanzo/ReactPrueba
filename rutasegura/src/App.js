@@ -61,7 +61,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password); // Pass credentials to login function
+    login(username, password); 
   };
 
   return (
@@ -74,7 +74,38 @@ function Login() {
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           <button type="submit">Login</button>
         </form>
+        <div>
+          <a href="/register">¿Eres nuevo?</a>
+        </div>
+        <a href="/recuperacion">¿Se te olvido tu contraseña?</a>
       </div>
+    </div>
+  );
+}
+
+function Register() {
+  return (
+    <div className="container">
+      <p style={{ fontFamily: "verdana", fontSize: 48 }}>Register</p>
+      <form>
+        <input type="text" placeholder="Username" required />
+        <input type="password" placeholder="Password" required />
+        <input type="password" placeholder="Confirm Password" required />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+}
+
+function Recuperacion() {
+  return (
+    <div className="container">
+      <p style={{ fontFamily: "verdana", fontSize: 48 }}>Recuperacion</p>
+      <form>
+        <input type="text" placeholder="Username" required />
+        <input type="text" placeholder="Email" required />
+        <button type="submit">Enviar</button>
+      </form>
     </div>
   );
 }
@@ -93,6 +124,18 @@ function App() {
               <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+                <Register />
+            }
+          />
+          <Route
+            path="/recuperacion"
+            element={
+              <Recuperacion />
             }
           />
           <Route

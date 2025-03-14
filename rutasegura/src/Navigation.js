@@ -10,6 +10,7 @@ function Navigation() {
         <div className="topnav">
           
           <Link to="/home">Inicio</Link>
+          <Link to="/register">Registro</Link>
           <Link to="/notifications">Notificaciones</Link>
           <Link to="/contact">Contactos</Link>
           <Link to="/about">Soporte</Link>
