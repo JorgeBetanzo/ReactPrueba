@@ -10,13 +10,11 @@ body {
   flex-direction: column;
 }
 
-/* Remove underline and set color to white for all links */
 a {
   text-decoration: none;
   color: white;
 }
 
-/* Change the color of links on hover */
 a:hover {
   color: #ddd;
 }

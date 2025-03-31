@@ -1,6 +1,6 @@
 import './App.css';
 import { useAuth } from "./AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
@@ -113,6 +113,13 @@ function Recuperacion() {
 
 
 function App() {
+  useEffect(() => {
+    fetch('http://localhost:8081/users') 
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+  
   return (
     <BrowserRouter>
       <AuthProvider>
